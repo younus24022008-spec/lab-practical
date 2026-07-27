@@ -1,102 +1,71 @@
-import java.util.*; 
- 
-public class Main { 
- 
-    static class Student { 
-        int roll; 
-        String name; 
-        double percentage; 
- 
-        Student(int roll, String name, double percentage) { 
-            this.roll = roll; 
-            this.name = name; 
-            this.percentage = percentage; 
-        } 
-    } 
- 
-    static void printTable(ArrayList<Student> list) { 
-        System.out.println("-----------------------------------"); 
-        System.out.printf("%-8s%-10s%-10s%n", "Roll", "Name", "Percentage"); 
-        System.out.println("-----------------------------------"); 
-        for (Student s : list) { 
-            System.out.printf("%-8d%-10s%-10.1f%n", s.roll, s.name, s.percentage); 
-        } 
-    } 
- 
-    public static void main(String[] args) { 
-        Scanner sc = new Scanner(System.in); 
-        ArrayList<Student> studentList = new ArrayList<>(); 
- 
-        System.out.print("Enter number of students: "); 
-        int n = Integer.parseInt(sc.nextLine().trim()); 
- 
-        for (int i = 0; i < n; i++) { 
-            System.out.println("Enter details for student " + (i + 1)); 
-            System.out.print("Roll No: "); 
-            int roll = Integer.parseInt(sc.nextLine().trim()); 
-            System.out.print("Name: "); 
-            String name = sc.nextLine().trim(); 
-            System.out.print("Percentage: "); 
-            double percentage = Double.parseDouble(sc.nextLine().trim()); 
-            studentList.add(new Student(roll, name, percentage)); 
-        } 
- 
-        System.out.println(); 
-        System.out.println("Student Records (ArrayList)"); 
-        System.out.println(); 
-        printTable(studentList); 
- 
-        System.out.print("Enter Roll No to search: "); 
-        int searchRoll = Integer.parseInt(sc.nextLine().trim()); 
- 
-        Student found = null; 
-        for (Student s : studentList) { 
-            if (s.roll == searchRoll) { 
-                found = s; 
-                break; 
-            } 
-        } 
- 
-        System.out.println(); 
-        System.out.println("Searching for Roll No : " + searchRoll); 
-        System.out.println(); 
- 
-        if (found != null) { 
-            System.out.println("Record Found"); 
-            System.out.println(); 
-            System.out.println("Roll No   : " + found.roll); 
-            System.out.println("Name      : " + found.name); 
-            System.out.println("Percentage: " + found.percentage); 
-        } else { 
-            System.out.println("Record Not Found"); 
-        } 
- 
-        if (!studentList.isEmpty()) { 
-            studentList.remove(0); 
-        } 
- 
-        System.out.println(); 
-        System.out.println("After Removing First Student"); 
-        System.out.println(); 
-        printTable(studentList); 
- 
-        LinkedHashMap<Integer, Student> studentMap = new LinkedHashMap<>(); 
-        for (Student s : studentList) { 
-            studentMap.put(s.roll, s); 
-        } 
- 
-        System.out.println(); 
-        System.out.println("Student Records (HashMap)"); 
-        System.out.println(); 
-        System.out.println("-----------------------------------"); 
-        for (Map.Entry<Integer, Student> entry : studentMap.entrySet()) { 
-            Student s = entry.getValue(); 
-            System.out.printf("%d -> %s (%.1f%%)%n", s.roll, s.name, s.percentage); 
-        } 
- 
-        sc.close(); 
-    } 
-} 
- 
- 
- 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class StudentRegistrationForm extends JFrame implements ActionListener {
+
+    JLabel l1, l2, l3;
+    JTextField t1, t2, t3;
+    JButton submit, clear; 
+
+    StudentRegistrationForm() {
+
+        setTitle("Student Registration Form");
+        setSize(400, 300);
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        l1 = new JLabel("Name:");
+        l2 = new JLabel("Roll Number:");
+        l3 = new JLabel("Course:");
+
+        t1 = new JTextField(20);
+        t2 = new JTextField(20);
+        t3 = new JTextField(20);
+
+        submit = new JButton("Submit");
+        clear = new JButton("Clear");
+
+        submit.addActionListener(this);
+        clear.addActionListener(this);
+
+        add(l1);
+        add(t1);
+
+        add(l2);
+        add(t2);
+
+        add(l3);
+        add(t3);
+
+        add(submit);
+        add(clear);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == submit) {
+            String name = t1.getText();
+            String roll = t2.getText();
+            String course = t3.getText();
+
+            JOptionPane.showMessageDialog(this,
+                    "Registration Successful!\n\n"
+                    + "Name: " + name
+                    + "\nRoll Number: " + roll
+                    + "\nCourse: " + course);
+        }
+
+        if (e.getSource() == clear) {
+            t1.setText("");
+            t2.setText("");
+            t3.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new StudentRegistrationForm();
+    }
+}
