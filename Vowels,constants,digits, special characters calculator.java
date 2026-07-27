@@ -1,32 +1,26 @@
-import java.util.Scanner; 
- 
-public class CountCharacters { 
-    public static void main(String[] args) { 
- 
-        Scanner sc = new Scanner(System.in); 
-        System.out.print("Enter a string: "); 
-        String s = sc.nextLine(); 
- 
-        int v = 0, c = 0, d = 0, sp = 0; 
- 
-        for (int i = 0; i < s.length(); i++) { 
-            char ch = Character.toLowerCase(s.charAt(i)); 
- 
-            if (ch >= 'a' && ch <= 'z') { 
-                if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') 
-                    v++; 
-                else 
-                    c++; 
-            } 
-            else if (ch >= '0' && ch <= '9') 
-                d++; 
-            else if (ch != ' ') 
-                sp++; 
-        } 
- 
-        System.out.println("Vowels: " + v); 
-        System.out.println("Consonants: " + c); 
-        System.out.println("Digits: " + d); 
-        System.out.println("Special Characters: " + sp); 
-    } 
+import java.awt.*;
+import java.awt.event.*;
+
+public class SimpleCalculator extends Frame implements ActionListener {
+    TextField t1 = new TextField(10), t2 = new TextField(10);
+    Label l = new Label("Result");
+    Button b = new Button("Add");
+
+    SimpleCalculator() {
+        setLayout(new FlowLayout());
+        add(t1); add(t2); add(b); add(l); 
+        b.addActionListener(this);
+        setSize(250,150);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        int a = Integer.parseInt(t1.getText());
+        int c = Integer.parseInt(t2.getText());
+        l.setText("Result : " + (a + c));
+    }
+
+    public static void main(String[] args) {
+        new SimpleCalculator();
+    }
 }
